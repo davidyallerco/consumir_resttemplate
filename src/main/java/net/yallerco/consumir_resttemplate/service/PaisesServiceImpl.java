@@ -55,6 +55,19 @@ public class PaisesServiceImpl implements PaisesService{
 		return response;
 	}
 	
+	//ACTUALIZAR
+	@Override
+	public void actualizar(Long id,Pais pais) {
+		//put no devuelve resultado
+		restTemplate.put(url+"/{id}",pais, id);
+	}
+	
+	@Override
+	public void actualizar2(Pais pais) {
+		//put no devuelve resultado
+		restTemplate.put(url,pais);
+	}
+	
 	
 	
 	

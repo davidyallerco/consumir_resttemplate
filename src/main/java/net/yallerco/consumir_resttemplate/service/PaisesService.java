@@ -16,8 +16,10 @@ public interface PaisesService {
 	void crear2(String nombrePais,String capital,String codigo);
 
 	Pais crear3(Pais pais);
+
+	void actualizar(Long id,Pais pais);
 	
-	
+	void actualizar2(Pais pais);
 	
 
 }

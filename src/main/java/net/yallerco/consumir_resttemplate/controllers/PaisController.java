@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +54,17 @@ public class PaisController {
 	public Pais crear3(@RequestBody Pais pais) {
 		Pais response = service.crear3(pais);
 		return response;
+	}
+	
+	//ACTUALIZAR
+	@PutMapping("/{id}")
+	public void actualizar(@PathVariable("id") Long id, @RequestBody Pais pais) {
+		service.actualizar(id,pais);
+	}
+	
+	@PutMapping
+	public void actualizar2(@RequestBody Pais pais) {
+		service.actualizar2(pais);
 	}
 	
 	
