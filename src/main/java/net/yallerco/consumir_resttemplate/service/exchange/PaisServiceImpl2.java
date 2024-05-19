@@ -1,0 +1,105 @@
+package net.yallerco.consumir_resttemplate.service.exchange;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import net.yallerco.consumir_resttemplate.entity.Pais;
+
+@Service
+public class PaisServiceImpl2 implements PaisService2 {
+	
+	String url = "http://localhost:8030/proveedor/pais";
+	
+	@Autowired
+	RestTemplate restTemplate;
+	
+//	restTemplate.exchange(url, HttpMethod.GET,null,)
+	
+	
+	
+	@Override
+	public List<Pais> buscarTodos() {
+		// Crear los headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+     // Crear la entidad de la solicitud
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+		ResponseEntity<List<Pais>> response = restTemplate.exchange(
+				url+"/listar",
+				HttpMethod.GET, 
+				entity ,
+				new ParameterizedTypeReference<List<Pais>>() {}
+				);
+		 
+		return response.getBody();
+	}
+	
+	@Override
+	public ResponseEntity<List<Pais>> buscarTodos2() {
+		// Crear los headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+     // Crear la entidad de la solicitud
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+		ResponseEntity<List<Pais>> response = restTemplate.exchange(
+				url+"/listar",
+				HttpMethod.GET, 
+				entity ,
+				new ParameterizedTypeReference<List<Pais>>() {}
+				);
+        return response;
+	}
+	
+	
+	@Override
+	public Pais buscarPorId(int id) {
+		
+		// Crear los headers (opcional, puedes agregar headers si es necesario)
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+        
+     // Crear la entidad de la solicitud
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+        ResponseEntity<Pais> response = restTemplate.exchange(
+                url+"/buscar/{id}",
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<Pais>() {},
+                id
+        );
+        return response.getBody();
+	}
+	
+	@Override
+	public ResponseEntity<Pais> buscarPorId2(int id) {
+		
+		// Crear los headers (opcional, puedes agregar headers si es necesario)
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+        
+     // Crear la entidad de la solicitud
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+        ResponseEntity<Pais> response = restTemplate.exchange(
+                url+"/buscar/{id}",
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<Pais>() {},
+                id
+        );
+        return response;
+	}
+
+
+}

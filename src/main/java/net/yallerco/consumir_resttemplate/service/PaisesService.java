@@ -20,6 +20,8 @@ public interface PaisesService {
 	void actualizar(Long id,Pais pais);
 	
 	void actualizar2(Pais pais);
+
+	void eliminar(Long id);
 	
 
 }

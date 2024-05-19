@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,7 +67,12 @@ public class PaisController {
 	public void actualizar2(@RequestBody Pais pais) {
 		service.actualizar2(pais);
 	}
+	//ELIMINAR
 	
-	
+	// http://localhost:8030/proveedor/pais/eliminar/1
+	@DeleteMapping("/eliminar/{id}")
+		public void eliminar(@PathVariable Long id) {
+			service.eliminar(id);
+	}
 
 }

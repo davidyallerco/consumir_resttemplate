@@ -68,6 +68,13 @@ public class PaisesServiceImpl implements PaisesService{
 		restTemplate.put(url,pais);
 	}
 	
+	//ELIMINAR
+	@Override
+	public void eliminar(Long id) {
+		//delete no devuelve resultado
+		restTemplate.delete(url+"/eliminar/{id}",id);
+	}
+	
 	
 	
 	
