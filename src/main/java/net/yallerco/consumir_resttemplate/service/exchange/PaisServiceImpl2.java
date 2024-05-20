@@ -1,5 +1,6 @@
 package net.yallerco.consumir_resttemplate.service.exchange;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,6 @@ public class PaisServiceImpl2 implements PaisService2 {
 	
 	@Autowired
 	RestTemplate restTemplate;
-	
-//	restTemplate.exchange(url, HttpMethod.GET,null,)
-	
-	
 	
 	@Override
 	public List<Pais> buscarTodos() {
@@ -100,6 +97,67 @@ public class PaisServiceImpl2 implements PaisService2 {
         );
         return response;
 	}
+	
+	//CREAR
+
+	@Override
+	public ResponseEntity<Pais> crear3(Pais pais) {
+        // Crear los headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        headers.set("Accept", "application/json");
+
+        // Crear la entidad de la solicitud
+        HttpEntity<Pais> entity = new HttpEntity<>(pais, headers);
+
+        // Realizar la solicitud usando exchange
+        ResponseEntity<Pais> response = restTemplate.exchange(
+                url+"/crear",
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<Pais>() {}
+        );
+        return response;
+    }
+	
+	//ACTUALIZAR
+	 @Override
+	 public ResponseEntity<Pais> actualizar(int id, Pais pais) {
+	        // Crear los headers
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("Content-Type", "application/json");
+	        headers.set("Accept", "application/json");
+	        // Crear la entidad de la solicitud
+	        HttpEntity<Pais> entity = new HttpEntity<>(pais, headers);
+	        // Realizar la solicitud usando exchange
+	        ResponseEntity<Pais> response = restTemplate.exchange(
+	                url+"/{id}",
+	                HttpMethod.PUT,
+	                entity,
+	                new ParameterizedTypeReference<Pais>() {},
+	                id
+	        );
+	        return response;
+	 }
+	 
+	 //ELIMINAR
+	 @Override
+	    public ResponseEntity<Void> eliminar(int id) {
+	        // Crear los headers (opcional, puedes agregar headers si es necesario)
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("Accept", "application/json");
+	        // Crear la entidad de la solicitud (sin cuerpo para DELETE)
+	        HttpEntity<Void> entity = new HttpEntity<>(headers);
+	        // Realizar la solicitud usando exchange
+	        ResponseEntity<Void> response = restTemplate.exchange(
+	                url+"/eliminar/{id}",
+	                HttpMethod.DELETE,
+	                entity,
+	                new ParameterizedTypeReference<Void>() {},
+	                id
+	        );
+	        return response;
+	    }
 
 
 }

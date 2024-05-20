@@ -13,5 +13,8 @@ public interface PaisService2 {
 	ResponseEntity<List<Pais>> buscarTodos2();
 	Pais buscarPorId(int id);
 	ResponseEntity<Pais> buscarPorId2(int id);
+	ResponseEntity<Pais> crear3(Pais pais);
+	ResponseEntity<Pais> actualizar(int id, Pais pais);
+	ResponseEntity<Void> eliminar(int id);
 	
 }
