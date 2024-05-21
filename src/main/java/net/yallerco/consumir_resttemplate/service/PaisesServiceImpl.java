@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +21,8 @@ public class PaisesServiceImpl implements PaisesService{
 	@Autowired
 	RestTemplate restTemplate;
 
+	//Útil cuando solo necesitas el cuerpo de la respuesta 
+	//y no necesitas acceso a otros detalles como el código de estado o los encabezados.
 	@Override
 	public List<Pais> obtenerPaises() {
 		Pais[]  paises = restTemplate.getForObject(url+"/listar", Pais[].class);
@@ -26,6 +31,19 @@ public class PaisesServiceImpl implements PaisesService{
 		return listaPaises;
 	}
 
+	//Útil cuando necesitas acceder a información adicional 
+	//de la respuesta HTTP, como los encabezados o el código de estado.
+	@Override
+	public ResponseEntity<List<Pais>> obtenerPaises2() {
+		ResponseEntity<Pais[]> response = restTemplate.getForEntity(url+"/listar", Pais[].class);
+		Pais[] paisesArray = response.getBody();
+		List<Pais> paisesList = Arrays.asList(paisesArray);
+		HttpStatus statusCode = (HttpStatus) response.getStatusCode();
+	    HttpHeaders headers = response.getHeaders();
+	 // Crear una nueva ResponseEntity con la lista de paises y los mismos encabezados y código de estado
+	    return new ResponseEntity<>(paisesList, headers, statusCode);
+	}
+	
 	@Override
 	public Pais buscarPorId(int id) {
 		
